@@ -4,10 +4,6 @@
 // Define the "EventedThing" class, so that its instances have
 // an "on" and a "trigger" method to react to events. For example:
 //
-// eventedThing.on('meet', function () {
-//  console.log('Hi there!');
-// });
-//
 // eventedThing.on('meet', function (name) {
 //  console.log('Nice to meet you, ' + name + '.');
 // });

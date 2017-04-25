@@ -3,41 +3,31 @@ require('chai').should();
 
 var eventedThing = require('../index.js');
 
-describe('eventedThing', function () {
+describe('eventedThing', () => {
 
-  var called1 = 0;
-  var called2 = 0;
-
-  it('should call all registered events callbacks', function () {
-    eventedThing.on('meet', function () {
-      called1++;
-    });
-    eventedThing.on('meet', function () {
-      called2++;
-    });
+  it('should invoke the callback of a registered event', function () {
+    let called = 0;
+    eventedThing.on('meet', () => called++);
     eventedThing.trigger('meet');
-    called1.should.equal(1);
-    called2.should.equal(1);
+    called.should.equal(1);
+    eventedThing.trigger('meet');
+    called.should.equal(2);
   });
 
   it('should pass provided arguments to callbacks', function () {
-    var passedArgs;
-    eventedThing.on('meet', function () {
-      passedArgs = [];
-      for (var key in arguments) {
-        passedArgs.push(arguments[key]);
-      }
-    });
+    let passedArgs;
+    eventedThing.on('meet', (...args) => passedArgs = [...args]);
     eventedThing.trigger('meet', 'arg1');
     passedArgs.should.eql(['arg1']);
     eventedThing.trigger('meet', 'arg1', 'arg2');
     passedArgs.should.eql(['arg1', 'arg2']);
   });
 
-  it('should do nothing for unregistered events', function () {
+  it('should do nothing for unregistered events', () => {
+    let called = 0;
+    eventedThing.on('meet', () => called++);
     eventedThing.trigger('whatever');
-    called1.should.equal(3);
-    called2.should.equal(3);
+    called.should.equal(0);
   });
 
 });
