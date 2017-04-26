@@ -1,6 +1,6 @@
 {
   "name": "codeworks-tp-evented-thing",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A Codeworks toy problem to train students",
   "main": "index.js",
   "scripts": {

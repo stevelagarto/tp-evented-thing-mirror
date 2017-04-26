@@ -17,7 +17,7 @@
 
 
 function EventedThing () {
-
+  this._listen = {};
 }
 
 module.exports = new EventedThing;
