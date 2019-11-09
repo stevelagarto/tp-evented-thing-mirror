@@ -18,6 +18,18 @@
 
 function EventedThing () {
   this._listen = {};
+  Object.assign(this._listen, eventedThingMethods);
+  return this._listen;
 }
+
+const eventedThingMethods= {};
+
+eventedThingMethods.on = function (callback) {
+  this.addEventListener('on', callback.apply(this, arguments));
+};
+
+eventedThingMethods.trigger = function (callback) {
+  this.addEventListener('trigger', callback.apply(this, arguments));
+};
 
 module.exports = new EventedThing;
