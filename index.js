@@ -24,12 +24,23 @@ function EventedThing () {
 
 const eventedThingMethods= {};
 
-eventedThingMethods.on = function (callback) {
-  this.addEventListener('on', callback.apply(this, arguments));
+eventedThingMethods.on = function (event, callback) {
+  this[event] = callback;
 };
 
-eventedThingMethods.trigger = function (callback) {
-  this.addEventListener('trigger', callback.apply(this, arguments));
+eventedThingMethods.trigger = function (event, ...args) {
+  if (this[event]) {
+    return this[event](...args);
+    //this[event].call(...arguments);
+  }
 };
+
+
+// let eventedThing = new EventedThing();
+// eventedThing.on('meet', function (name) {
+//   console.log('Nice to meet you, ' + name + '.');
+// });
+// eventedThing.trigger('meet', 'Sarah');
+// console.log(eventedThing.on);
 
 module.exports = new EventedThing;
